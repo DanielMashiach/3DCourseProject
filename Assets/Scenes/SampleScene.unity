@@ -242,8 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 1905674228}
   easeHealthSlider: {fileID: 2016917050}
-  maxHealth: 100
-  health: 0
+  lerpSpeed: 5
 --- !u!1 &305936988
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +335,7 @@ GameObject:
   - component: {fileID: 360835589}
   - component: {fileID: 360835588}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PlayerHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -664,11 +663,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 307990490493015565, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.08515
+      value: 11.478
       objectReference: {fileID: 0}
     - target: {fileID: 307990490493015565, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.23483
       objectReference: {fileID: 0}
     - target: {fileID: 307990490493015565, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -706,10 +705,22 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2017254892}
+    - target: {fileID: 1319206712633135795, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290609107409391929, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6233806701481108198, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8660334767359575132, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+      propertyPath: rend
+      value: 
+      objectReference: {fileID: 1401683878}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1282,6 +1293,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 743925555229763835, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319206712633135795, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6233806701481108198, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
       propertyPath: m_Name
       value: Enemy2
@@ -1366,6 +1385,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399515566}
   m_CullTransparentMesh: 1
+--- !u!23 &1401683878 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3538005828613408030, guid: 8ac84a236b489d34a815227c047d5bc9, type: 3}
+  m_PrefabInstance: {fileID: 598851989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1740881300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,7 +1790,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1399515567}
   m_HandleRect: {fileID: 0}
@@ -1855,7 +1879,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 651421898}
   m_HandleRect: {fileID: 0}
@@ -1884,6 +1908,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3715335021045997259, guid: f362816518bd99f4e8a3a1b4feb3cddc, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 233438007}
     - target: {fileID: 4707754786936935664, guid: f362816518bd99f4e8a3a1b4feb3cddc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
