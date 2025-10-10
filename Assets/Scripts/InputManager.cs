@@ -10,6 +10,8 @@ public class InputManager : MonoBehaviour
     private PlayerLook look;
 
     [SerializeField] private Animator swordAnimator;
+    [SerializeField] private FootStepSound footsteps;
+
 
     // Run before start
     void Awake()
@@ -26,6 +28,15 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+
+        Vector2 move = onFoot.Movement.ReadValue<Vector2>();
+        motor.ProcessMove(move);
+
+        if (footsteps != null)
+        {
+            footsteps.SetMoveInput(move);
+        }
+
     }
 
     void LateUpdate()
@@ -44,8 +55,8 @@ public class InputManager : MonoBehaviour
         onFoot.Attack.performed -= OnAttack;
         onFoot.Disable();
     }
-    
-        private void OnAttack(InputAction.CallbackContext ctx)
+
+    private void OnAttack(InputAction.CallbackContext ctx)
     {
         swordAnimator.SetTrigger("Attack");
     }
