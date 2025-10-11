@@ -3,42 +3,37 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField] private Slider healthSlider;      
+    [SerializeField] private Slider easeHealthSlider;   
+    [SerializeField] private float lerpSpeed = 5f;
 
-    [SerializeField] private Slider healthSlider;
-    [SerializeField] private Slider easeHealthSlider;
+    private float targetHealth;
 
-    public float maxHealth = 100f;
-    public float health;
-    private float lerpSpeed = 0.05f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void SetMaxHealth(int maxHealth)
     {
-        health = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        easeHealthSlider.maxValue = maxHealth;
+
+        healthSlider.value = maxHealth;
+        easeHealthSlider.value = maxHealth;
+        targetHealth = maxHealth;
     }
 
-    // Update is called once per frame
+    public void SetHealth(int health)
+    {
+        targetHealth = health;
+        healthSlider.value = health;
+    }
+
     void Update()
     {
-
-        if (healthSlider.value != health)
+        if (Mathf.Abs(easeHealthSlider.value - targetHealth) > 0.01f)
         {
-            healthSlider.value = health;
+            easeHealthSlider.value = Mathf.Lerp(
+                easeHealthSlider.value,
+                targetHealth,
+                Time.deltaTime * lerpSpeed
+            );
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(10);
-        }
-        
-        if (healthSlider.value != easeHealthSlider.value)
-        {
-            easeHealthSlider.value = Mathf.Lerp(easeHealthSlider.value, health, lerpSpeed);
-        }
-    }
-    
-    void TakeDamage(float damage)
-    {
-        health -= damage;
     }
 }

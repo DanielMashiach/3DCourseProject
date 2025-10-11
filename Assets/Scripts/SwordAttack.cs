@@ -1,15 +1,15 @@
-using NUnit.Framework;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class SwordAttack : MonoBehaviour
 {
-
     [SerializeField] private int damage = 1;
     private bool canHit = false;
+    private bool hasHit = false;
+
     public void EnableHit()
     {
         canHit = true;
+        hasHit = false;
     }
 
     public void DisableHit()
@@ -17,15 +17,15 @@ public class SwordAttack : MonoBehaviour
         canHit = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (!canHit) return;
+        if (!canHit || hasHit) return;
 
         EnemyHealth enemy = other.GetComponent<EnemyHealth>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
-            Debug.Log("Hit Enemy!");
+            hasHit = true;
         }
     }
 }

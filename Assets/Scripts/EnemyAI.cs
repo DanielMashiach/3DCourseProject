@@ -5,6 +5,8 @@ public class EnemyAI : MonoBehaviour
 {
 
     public Transform player;
+    private PlayerHealth playerHealth;
+
     
     public float attackRange = 2f;
     public float attackCooldown = 1f;
@@ -16,18 +18,25 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
 
-        
+
         agent = GetComponent<NavMeshAgent>();
-        
+
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+        
+        if (player != null)
+        {
+            playerHealth = player.GetComponent<PlayerHealth>();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!agent.enabled) return;
+
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance > attackRange)
         {
@@ -49,13 +58,18 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void Attack()
+void Attack()
     {
         if (Time.time - lastAttackTime >= attackCooldown)
         {
             lastAttackTime = Time.time;
 
-            Debug.Log("Enemy Attacks!");
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1);
+            }
+
+            Debug.Log("Enemy Attacks Player!");
         }
     }
 }
