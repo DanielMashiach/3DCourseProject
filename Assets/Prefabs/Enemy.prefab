@@ -489,6 +489,7 @@ MonoBehaviour:
   player: {fileID: 0}
   attackRange: 1
   attackCooldown: 3
+  patrolRadius: 5
 --- !u!114 &8660334767359575132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,7 +721,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1319206712633135795}
   m_HandleRect: {fileID: 0}
