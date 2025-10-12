@@ -118,7 +118,7 @@ MonoBehaviour:
   healthSlider: {fileID: 5290609107409391929}
   fillImage: {fileID: 7226541121124964460}
   enemyHealth: {fileID: 8660334767359575132}
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 1.5, z: 0}
   lerpSpeed: 8
 --- !u!1 &2764275315369322336
 GameObject:
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 8660334767359575132}
   - component: {fileID: 7593403608702380854}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: RedEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -369,7 +369,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.88, y: 0.58, z: 0.9}
-  m_LocalScale: {x: 0.80908, y: 0.80908, z: 0.80908}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7883260177559692044}
@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  attackRange: 1
-  attackCooldown: 3
+  attackRange: 1.5
+  attackCooldown: 2
   patrolRadius: 5
 --- !u!114 &8660334767359575132
 MonoBehaviour:

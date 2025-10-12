@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 10;
-    public int currentHealth;
+    [SerializeField] private int maxHealth = 10;
+    private int currentHealth;
 
-    public HealthBar healthBar;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private GameOverMenu gameOverMenu;
 
     void Start()
     {
@@ -21,5 +22,19 @@ public class PlayerHealth : MonoBehaviour
 
         if (healthBar != null)
             healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        if (gameOverMenu != null)
+        {
+            gameOverMenu.Show();
+        }
+
     }
 }

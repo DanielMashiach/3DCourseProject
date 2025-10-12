@@ -9,7 +9,7 @@ public class SwordAttack : MonoBehaviour
     public void EnableHit()
     {
         canHit = true;
-        hasHit = false;
+        hasHit = false; 
     }
 
     public void DisableHit()
@@ -25,7 +25,7 @@ public class SwordAttack : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
-            hasHit = true;
+            hasHit = true; 
         }
     }
 }

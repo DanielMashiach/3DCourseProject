@@ -12,8 +12,7 @@ public class EnemyAI : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    // פטרול
-    public float patrolRadius = 5f; // המרחק המרבי לנקודת הפטרול
+    public float patrolRadius = 5f; 
     private Vector3 patrolTarget;
     private bool isPatrolling = true;
     private float patrolWaitTime = 2f;
@@ -29,39 +28,39 @@ public class EnemyAI : MonoBehaviour
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
 
-        // נקודת פטרול ראשונית באיזור האיסוף
         patrolTarget = transform.position;
     }
 
-    void Update()
+void Update()
+{
+    if (!agent.enabled) return;
+
+    float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+    if (distanceToPlayer <= attackRange)
     {
-        if (!agent.enabled) return;
+        agent.isStopped = true;
+        FaceTarget(player.position);
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= attackRange)
+        if (Time.time - lastAttackTime >= attackCooldown)
         {
-            // בתוך טווח – עצירה והתקפה
-            isPatrolling = false;
-            agent.isStopped = true;
-            Attack();
-            FaceTarget(player.position);
-        }
-        else if (distanceToPlayer <= patrolRadius * 2f)
-        {
-            // בתוך "זיהוי" – רדיפה אחרי השחקן
-            isPatrolling = false;
-            agent.isStopped = false;
-            agent.SetDestination(player.position);
-            FaceTarget(player.position);
-        }
-        else
-        {
-            // לא רואה שחקן – פטרול רנדומלי
-            isPatrolling = true;
-            Patrol();
+            lastAttackTime = Time.time;
+            if (playerHealth != null)
+                playerHealth.TakeDamage(1);
+            Debug.Log("Enemy Attacks Player!");
         }
     }
+    else if (distanceToPlayer <= patrolRadius * 2f)
+    {
+        agent.isStopped = false;
+        agent.SetDestination(player.position);
+        FaceTarget(player.position);
+    }
+    else
+    {
+        Patrol();
+    }
+}
 
     void Attack()
     {
@@ -78,7 +77,6 @@ public class EnemyAI : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, patrolTarget) < 0.5f || patrolTimer <= 0f)
         {
-            // קבע נקודה רנדומלית חדשה בקרבת מקום האיסוף
             patrolTarget = transform.position + new Vector3(Random.Range(-patrolRadius, patrolRadius), 0,
                                                             Random.Range(-patrolRadius, patrolRadius));
             agent.SetDestination(patrolTarget);
