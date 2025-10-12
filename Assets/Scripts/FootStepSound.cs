@@ -1,10 +1,12 @@
 using UnityEngine;
+
 public class FootStepSound : MonoBehaviour
 {
-
+    [Header("Audio")]
     [SerializeField] private AudioClip footstepSound;
-    private AudioSource audioSource;
-    private CharacterController controller;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private CharacterController controller;
+    [Header("Step Settings")]
     public float stepInterval = 0.5f; // Time interval between steps
     private float stepTimer;
 
@@ -13,17 +15,12 @@ public class FootStepSound : MonoBehaviour
     {
         moveInput = input;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        controller = GetComponent<CharacterController>();
         stepTimer = stepInterval;
-
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (moveInput.magnitude > 0.1f && controller.isGrounded)

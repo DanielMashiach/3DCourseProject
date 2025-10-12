@@ -3,73 +3,61 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public Transform player;
+    [Header("References")]
+    [SerializeField] private NavMeshAgent agent; // גוררים בפריפאב
+
+    private Transform player;
     private PlayerHealth playerHealth;
 
+    [Header("Stats")]
     public float attackRange = 2f;
     public float attackCooldown = 1f;
     private float lastAttackTime;
 
-    private NavMeshAgent agent;
-
     public float patrolRadius = 5f; 
     private Vector3 patrolTarget;
-    private bool isPatrolling = true;
     private float patrolWaitTime = 2f;
     private float patrolTimer = 0f;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
 
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
 
         patrolTarget = transform.position;
     }
 
-void Update()
-{
-    if (!agent.enabled) return;
-
-    float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-    if (distanceToPlayer <= attackRange)
+    void Update()
     {
-        agent.isStopped = true;
-        FaceTarget(player.position);
+        if (!agent.enabled || player == null) return;
 
-        if (Time.time - lastAttackTime >= attackCooldown)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer <= attackRange)
         {
-            lastAttackTime = Time.time;
-            if (playerHealth != null)
-                playerHealth.TakeDamage(1);
-            Debug.Log("Enemy Attacks Player!");
+            agent.isStopped = true;
+            FaceTarget(player.position);
+
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                lastAttackTime = Time.time;
+                playerHealth?.TakeDamage(1);
+                Debug.Log("Enemy Attacks Player!");
+            }
         }
-    }
-    else if (distanceToPlayer <= patrolRadius * 2f)
-    {
-        agent.isStopped = false;
-        agent.SetDestination(player.position);
-        FaceTarget(player.position);
-    }
-    else
-    {
-        Patrol();
-    }
-}
-
-    void Attack()
-    {
-        if (Time.time - lastAttackTime >= attackCooldown)
+        else if (distanceToPlayer <= patrolRadius * 2f)
         {
-            lastAttackTime = Time.time;
-            if (playerHealth != null)
-                playerHealth.TakeDamage(1);
-            Debug.Log("Enemy Attacks Player!");
+            agent.isStopped = false;
+            agent.SetDestination(player.position);
+            FaceTarget(player.position);
+        }
+        else
+        {
+            Patrol();
         }
     }
 

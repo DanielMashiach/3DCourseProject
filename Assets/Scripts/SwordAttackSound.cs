@@ -2,19 +2,12 @@ using UnityEngine;
 
 public class SwordAttackSound : MonoBehaviour
 {
-
     [SerializeField] private AudioClip swordSound;
-    private AudioSource audioSource;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource audioSource;
 
     public void PlaySwordSound()
     {
-        audioSource.PlayOneShot(swordSound);
+        if (audioSource != null && swordSound != null)
+            audioSource.PlayOneShot(swordSound);
     }
-
 }

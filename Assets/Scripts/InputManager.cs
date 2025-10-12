@@ -6,29 +6,24 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerInput.OnFootActions onFoot;
 
-    private PlayerMotor motor;
-    private PlayerLook look;
+    [Header("Player Components")]
+    [SerializeField] private PlayerMotor motor;
+    [SerializeField] private PlayerLook look;
 
+    [Header("Extras")]
     [SerializeField] private Animator swordAnimator;
     [SerializeField] private FootStepSound footsteps;
 
-
-    // Run before start
     void Awake()
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
 
-        motor = GetComponent<PlayerMotor>();
-        look = GetComponent<PlayerLook>();
-
         onFoot.Jump.performed += ctx => motor.Jump();
-
     }
+
     void FixedUpdate()
     {
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
-
         Vector2 move = onFoot.Movement.ReadValue<Vector2>();
         motor.ProcessMove(move);
 
@@ -36,7 +31,6 @@ public class InputManager : MonoBehaviour
         {
             footsteps.SetMoveInput(move);
         }
-
     }
 
     void LateUpdate()
