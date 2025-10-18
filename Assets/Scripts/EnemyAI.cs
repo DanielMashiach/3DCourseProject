@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private NavMeshAgent agent; // גוררים בפריפאב
+    [SerializeField] private NavMeshAgent agent;
 
     private Transform player;
     private PlayerHealth playerHealth;

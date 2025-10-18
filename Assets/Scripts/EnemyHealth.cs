@@ -12,7 +12,7 @@ public class EnemyHealth : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private int maxHealth = 3;
     private int currentHealth;
-    
+    private bool isDead = false;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -23,11 +23,14 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        EnemyManager.Instance.RegisterEnemy();
     }
 
     // Update is called once per frame
     public void TakeDamage(int amount)
     {
+        if (isDead) return;
+
         currentHealth -= amount;
         currentHealth = Mathf.Max(0, currentHealth);
 
@@ -39,6 +42,9 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        isDead = true;
+        EnemyManager.Instance.OnEnemyDied();
+
         if (agent != null)
         {
             agent.enabled = false;
